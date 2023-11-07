@@ -1,0 +1,41 @@
+<div>
+  <h1>Variedades disponibles:</h1>
+  <div *ngFor="let vari of variedad" class="variedades">
+    <div class="variedad">
+      <p>{{ vari.nombre }}</p>
+      <p (click)="pushPedido(vari)" class="add">Agregar variedad</p>
+    </div>
+  </div>
+
+  <h1>Modifica la cantidad por variedad</h1>
+  <div class="contentPedido">
+    <div class="pedido" *ngFor="let pedid of pedido">
+      <div class="pedidoContent">
+        <div class="contentCantidadNombre">
+          <p> {{ pedid.nombre }} </p>
+        </div>
+        <div class="contentCantidadPedido">
+          <p (click)="decreaseQuantity(pedid)" class="less">-</p>
+          <p class="canti"> {{ pedid.cantidad }} </p>
+          <p (click)="addMoreCant(pedid)" class="more">+</p>
+        </div>
+      </div>
+    </div>
+    <div class="contentFinalizarPedido">
+      <h2 *ngIf="pedido.length > 0" class="finalizarPedido" (click)="openModal()">Finalizar pedido</h2>
+    </div>
+
+    <div class="overlay" [style.display]="showModal ? 'block' : 'none'" (click)="closeModal()"></div>
+
+    <div class="modal" [style.display]="showModal ? 'block' : 'none'">
+      <h2>Confirmar pedido</h2>
+      <div class="infoPedido">
+        <div *ngFor="let ped of pedido">
+          <p>{{ ped.cantidad }} de {{ ped.nombre }}</p>
+        </div>
+      </div>
+      <button (click)="confirmPedido(pedido)">Confirmar</button>
+      <button (click)="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
